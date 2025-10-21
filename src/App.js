@@ -35,7 +35,7 @@ class App {
     }
   }
 
-  validateForwardCount(count) {
+  validateTryCount(count) {
     if (isNaN(count)) {
       throw new Error('[ERROR] 숫자만 입력해 주세요.');
     }
@@ -48,8 +48,8 @@ class App {
     const carNames = await Console.readLineAsync('경주할 자동차 이름(이름은 쉼표(,) 기준으로 구분');
     const carNameList = carNames.split(',');
     this.validateCarName(carNameList)
-    const forwardCount = await Console.readLineAsync('시도할 횟수');
-    this.validateForwardCount(forwardCount);
+    const tryCount = await Console.readLineAsync('시도할 횟수');
+    this.validateTryCount(tryCount);
   }
 }
 
