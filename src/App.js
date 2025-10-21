@@ -1,4 +1,15 @@
-import { Console } from "@woowacourse/mission-utils";
+import { Console, Random } from "@woowacourse/mission-utils";
+
+export class RacingGame {
+  getForwardDistance() {
+    let forwardDistance = 0;
+    const random = Random.pickNumberInRange(0, 9);
+    if (random > 3) {
+      forwardDistance = 1;
+    }
+    return forwardDistance;
+  }
+}
 
 class App {
 
