@@ -5,6 +5,10 @@ export class Car {
     this.name = name;
     this.forwardDistance = 0;
   }
+
+  printCurrentForwardDistance() {
+    Console.print(`${this.name} : ${'-'.repeat(this.forwardDistance)}`);
+  }
 }
 
 export class RacingGame {
@@ -26,10 +30,13 @@ export class RacingGame {
   round() {
     this.cars.forEach(car => {
       car.forwardDistance += this.getForwardDistance();
+      car.printCurrentForwardDistance();
     });
+    Console.print('');
   }
 
   play() {
+    Console.print('실행 결과');
     for (let i = 0; i < this.tryCount; i++) {
       this.round();
     }

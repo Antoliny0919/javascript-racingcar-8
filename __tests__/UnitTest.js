@@ -1,9 +1,12 @@
-import { Random } from "@woowacourse/mission-utils";
+import { Random, Console } from "@woowacourse/mission-utils";
 import { Car, RacingGame } from "../src/App";
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Random: {
     pickNumberInRange: jest.fn(),
+  },
+  Console: {
+    print: jest.fn(),
   },
 }));
 
@@ -13,6 +16,8 @@ let game;
 beforeEach(() => {
   cars = [new Car('a'), new Car('b'), new Car('c')];
   game = new RacingGame(cars, 2);
+
+  Console.print.mockClear();
 });
 
 describe('RacingGame', () => {
@@ -28,24 +33,21 @@ describe('RacingGame', () => {
 });
 
 describe('Car', () => {
-  test('라운드마다 자동차 이동거리 테스트', () => {
+  test('라운드마다 자동차 이동거리 출력 테스트', () => {
     const randomValue = [4, 5, 2, 8, 3, 1];
     randomValue.forEach((value) => Random.pickNumberInRange.mockReturnValueOnce(value));
 
     game.round();
 
-    const car1 = cars[0];
-    const car2 = cars[1];
-    const car3 = cars[2];
-
-    expect(car1.forwardDistance).toBe(1);
-    expect(car2.forwardDistance).toBe(1);
-    expect(car3.forwardDistance).toBe(0);
+    expect(Console.print).toHaveBeenCalled();
+    expect(Console.print).toHaveBeenCalledWith('a : -');
+    expect(Console.print).toHaveBeenCalledWith('b : -');
+    expect(Console.print).toHaveBeenCalledWith('c : ');
 
     game.round();
 
-    expect(car1.forwardDistance).toBe(2);
-    expect(car2.forwardDistance).toBe(1);
-    expect(car3.forwardDistance).toBe(0);
+    expect(Console.print).toHaveBeenCalledWith('a : --');
+    expect(Console.print).toHaveBeenCalledWith('b : -');
+    expect(Console.print).toHaveBeenCalledWith('c : ');
   });
 });
