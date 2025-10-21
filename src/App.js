@@ -3,8 +3,8 @@ import { Console } from "@woowacourse/mission-utils";
 class App {
 
   validateCarName(carNameList) {
-    if (carNameList.length === 0) {
-      throw new Error('[ERROR] 자동차 이름을 입력하지 않았습니다.')
+    if (carNameList.length < 2) {
+      throw new Error('[ERROR] 경주를 하기 위해서는 최소한 자동차가 두 대 이상이어야 합니다.')
     }
     if (carNameList.some(name => name.trim() === '')) {
       throw new Error('[ERROR] 공백은 자동차 이름으로 사용할 수 없습니다.')
