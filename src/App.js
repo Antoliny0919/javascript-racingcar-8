@@ -1,5 +1,12 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+class Car {
+  constructor(name) {
+    this.name = name;
+    this.forwardDistance = 0;
+  }
+}
+
 export class RacingGame {
   getForwardDistance() {
     let forwardDistance = 0;
