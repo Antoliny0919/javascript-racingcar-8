@@ -58,3 +58,33 @@ describe('자동차 경주', () => {
     await expect(app.run()).rejects.toThrow('[ERROR]');
   });
 });
+
+describe('입력 예외 테스트', () => {
+  test.each(
+    [
+      ['aa, ,cc', '공백은 자동차 이름으로 사용할 수 없습니다.'],
+      ['seoul,,gwangju', '빈 자동차 이름은 사용할 수 없습니다.'],
+      ['bmw,benz,ferrari', '자동차 이름은 5자 이하여야 합니다.'],
+      ['kim,lee,lee', '동일한 이름은 사용할 수 없습니다.'],
+    ]
+  )('자동차 이름 입력 예외', async (input, message) => {
+    mockQuestions([input]);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow(`[ERROR] ${message}`);
+  });
+
+  test.each(
+    [
+      ['다섯', '숫자만 입력해 주세요.'],
+      ['300', '최대 이동횟수는 100회 입니다.'],
+    ]
+  )('이동횟수 입력 예외', async (input, message) => {
+    mockQuestions(['aa,bb' ,input]);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow(`[ERROR] ${message}`);
+  });
+});
