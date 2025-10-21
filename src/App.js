@@ -36,7 +36,7 @@ export class RacingGame {
   }
 
   play() {
-    Console.print('실행 결과');
+    Console.print('\n실행 결과');
     for (let i = 0; i < this.tryCount; i++) {
       this.round();
     }
@@ -70,11 +70,11 @@ class App {
   }
 
   async run() {
-    const carNames = await Console.readLineAsync('경주할 자동차 이름(이름은 쉼표(,) 기준으로 구분');
+    const carNames = await Console.readLineAsync('경주할 자동차 이름(이름은 쉼표(,) 기준으로 구분\n');
     const carNameList = carNames.split(',');
     const cars = carNameList.map(name => new Car(name));
     this.validateCarName(carNameList)
-    const tryCount = await Console.readLineAsync('시도할 횟수');
+    const tryCount = await Console.readLineAsync('시도할 횟수\n');
     this.validateTryCount(tryCount);
     const game = new RacingGame(cars, tryCount);
     game.play();
