@@ -1,6 +1,6 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
-class Car {
+export class Car {
   constructor(name) {
     this.name = name;
     this.forwardDistance = 0;
@@ -8,6 +8,12 @@ class Car {
 }
 
 export class RacingGame {
+
+  constructor(cars, tryCount) {
+    this.cars = cars;
+    this.tryCount = tryCount;
+  }
+
   getForwardDistance() {
     let forwardDistance = 0;
     const random = Random.pickNumberInRange(0, 9);
@@ -15,6 +21,18 @@ export class RacingGame {
       forwardDistance = 1;
     }
     return forwardDistance;
+  }
+
+  round() {
+    this.cars.forEach(car => {
+      car.forwardDistance += this.getForwardDistance();
+    });
+  }
+
+  play() {
+    for (let i = 0; i < this.tryCount; i++) {
+      this.round();
+    }
   }
 }
 
@@ -47,9 +65,12 @@ class App {
   async run() {
     const carNames = await Console.readLineAsync('경주할 자동차 이름(이름은 쉼표(,) 기준으로 구분');
     const carNameList = carNames.split(',');
+    const cars = carNameList.map(name => new Car(name));
     this.validateCarName(carNameList)
     const tryCount = await Console.readLineAsync('시도할 횟수');
     this.validateTryCount(tryCount);
+    const game = new RacingGame(cars, tryCount);
+    game.play();
   }
 }
 
