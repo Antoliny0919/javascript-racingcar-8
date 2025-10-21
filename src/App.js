@@ -12,7 +12,7 @@ class App {
     if (carNameList.some(name => name.length > 5)) {
       throw new Error('[ERROR] 자동차 이름은 5자 이하여야 합니다.')
     }
-    if (new Set(carNameList).length !== carNameList.length) {
+    if (new Set(carNameList).size !== carNameList.length) {
       throw new Error('[ERROR] 동일한 이름은 사용할 수 없습니다.')
     }
   }
