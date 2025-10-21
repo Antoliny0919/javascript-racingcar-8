@@ -17,10 +17,21 @@ class App {
     }
   }
 
+  validateForwardCount(count) {
+    if (isNaN(count)) {
+      throw new Error('[ERROR] 숫자만 입력해 주세요.');
+    }
+    if (Number(count) > 100) {
+      throw new Error('[ERROR] 최대 이동횟수는 100회 입니다.');
+    }
+  }
+
   async run() {
     const carNames = await Console.readLineAsync('경주할 자동차 이름(이름은 쉼표(,) 기준으로 구분');
     const carNameList = carNames.split(',');
     this.validateCarName(carNameList)
+    const forwardCount = await Console.readLineAsync('시도할 횟수');
+    this.validateForwardCount(forwardCount);
   }
 }
 
