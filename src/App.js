@@ -36,8 +36,8 @@ export class RacingGame {
   }
 
   announceWinners(winners) {
-    const winnersName = winners.map(winner => winner.name);
-    Console.print(MESSAGES.WINNER_ANNOUNCE_MESSAGE(winnersName));
+    const winnerNames = winners.map(winner => winner.name);
+    Console.print(MESSAGES.WINNER_ANNOUNCE_MESSAGE(winnerNames));
   }
 
   round() {

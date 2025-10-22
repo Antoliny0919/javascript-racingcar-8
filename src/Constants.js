@@ -11,5 +11,5 @@ export const MESSAGES = Object.freeze({
     CAR_NAME_INPUT_MESSAGE: '경주할 자동차 이름(이름은 쉼표(,) 기준으로 구분\n',
     ROUND_COUNT_INPUT_MESSAGE: '시도할 횟수\n',
     EXECUTE_RESULT_MESSAGE: '\n실행 결과',
-    WINNER_ANNOUNCE_MESSAGE: (winnersName) => `최종 우승자 : ${winnersName.join(', ')}`,
+    WINNER_ANNOUNCE_MESSAGE: (winnerNames) => `최종 우승자 : ${winnerNames.join(', ')}`,
 });
