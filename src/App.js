@@ -1,6 +1,6 @@
-import { Console } from "@woowacourse/mission-utils";
-import { RacingGame } from "./Game.js";
-import { MESSAGES } from "./Constants.js";
+import { Console } from '@woowacourse/mission-utils';
+import { RacingGame } from './Game.js';
+import { MESSAGES } from './Constants.js';
 
 class App {
 

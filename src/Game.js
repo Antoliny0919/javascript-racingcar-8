@@ -1,5 +1,5 @@
-import { Console, Random } from "@woowacourse/mission-utils";
-import { ERROR_MESSAGES, MESSAGES } from "./Constants.js";
+import { Console, Random } from '@woowacourse/mission-utils';
+import { ERROR_MESSAGES, MESSAGES } from './Constants.js';
 
 const CAR_NAME_SEPARATOR = ',';
 const RANDOM_MIN = 0;

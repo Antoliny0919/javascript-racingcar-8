@@ -1,5 +1,5 @@
-import { Random, Console } from "@woowacourse/mission-utils";
-import { RacingGame } from "../src/Game.js";
+import { Random, Console } from '@woowacourse/mission-utils';
+import { RacingGame } from '../src/Game.js';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Random: {
