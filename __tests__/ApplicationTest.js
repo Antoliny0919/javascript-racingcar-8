@@ -59,6 +59,77 @@ describe('자동차 경주', () => {
   });
 });
 
+describe('다양한 성공 케이스 테스트', () => {
+
+  // 정수로된 값을 mock에 전달할 패턴으로 변환합니다.
+  // e.g. [1, 2] -> [MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD]
+  const makeForwardDistancePattern = (roundCount, distances) => {
+    const MOVING_FORWARD = 4;
+    const STOP = 3;
+    let patterns = [];
+
+    for (let i = 0; i < roundCount; i++) {
+      distances.forEach((distance) => {
+        let forward = STOP;
+        if (distance > i) {
+          forward = MOVING_FORWARD;
+        }
+        patterns.push(forward);
+      });
+    }
+
+    return patterns;
+  }
+
+  test.each(
+    [
+      {
+        name: '많은 라운드 테스트',
+        inputs: ['bee,honey', '10'],
+        distances: [10, 3],
+        logs: ['bee : ----------', 'honey : ---'],
+        winners: 'bee',
+      },
+      {
+        name: '많은 자동차 테스트',
+        inputs: ['aa,bb,cc,dd,ee,ff,gg', '2'],
+        distances: [2, 1, 0, 2, 1, 0, 2],
+        logs: ['aa : --', 'bb : -', 'cc : ', 'dd : --', 'ee : -', 'ff : ', 'gg : --'],
+        winners: 'aa, dd, gg',
+      },
+      {
+        name: '모두 최고점 테스트',
+        inputs: ['kim,lee,jung', '3'],
+        distances: [3, 3, 3],
+        logs: ['kim : ---', 'lee : ---', 'jung : ---'],
+        winners: 'kim, lee, jung',
+      },
+      {
+        name: '모두 최저점 테스트',
+        inputs: ['**,[[]],()()', '2'],
+        distances: [0, 0, 0],
+        logs: ['** : ', '[[]] : ', '()() : '],
+        winners: '**, [[]], ()()',
+      },
+    ]
+  )('$name', async ({ inputs, distances, logs, winners }) => {
+    const logSpy = getLogSpy();
+
+    mockQuestions(inputs);
+    const roundCount = Number(inputs[1]);
+    const forwardDistancePatterns = makeForwardDistancePattern(roundCount, distances);
+    mockRandoms(forwardDistancePatterns);
+
+    const app = new App();
+    await app.run();
+
+    logs.forEach((log) => {
+      expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+    });
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(`최종 우승자 : ${winners}`));
+  })
+});
+
 describe('자동차 이름 입력 예외 테스트', () => {
   test.each(['solo', ''])('한 대 이하 자동차 입력 예외', async (input) => {
     mockQuestions([input]);
