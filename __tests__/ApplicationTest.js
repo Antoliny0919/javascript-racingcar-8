@@ -125,6 +125,7 @@ describe('다양한 성공 케이스 테스트', () => {
 
     logs.forEach((log) => {
       expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(log));
+      expect(logSpy).not.toHaveBeenCalledWith(expect.stringContaining(`${log}-`));
     });
     expect(logSpy).toHaveBeenCalledWith(expect.stringContaining(`최종 우승자 : ${winners}`));
   })
