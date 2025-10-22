@@ -1,15 +1,6 @@
 import { Console, Random } from '@woowacourse/mission-utils';
-import { ERROR_MESSAGES, MESSAGES } from './Constants.js';
-
-const CAR_NAME_SEPARATOR = ',';
-const RANDOM_MIN = 0;
-const RANDOM_MAX = 9;
-const FORWARD_THRESHOLD = 3;
-const FORWARD_DISTANCE = 1;
-
-const MIN_CAR_LENGTH = 2;
-const MAX_CAR_NAME_LENGTH = 5;
-const LIMIT_ROUND_COUNT = 100;
+import { MESSAGES } from './constants/Messages.js';
+import { RACING_GAME } from './constants/Game.js';
 
 export class Car {
   constructor(name) {
@@ -25,43 +16,16 @@ export class Car {
 export class RacingGame {
 
   constructor(carNames, roundCount) {
-    const carNameList = carNames.split(CAR_NAME_SEPARATOR);
-    this.validateCarName(carNameList);
-    this.validateRoundCount(roundCount);
-    const cars = carNameList.map(name => new Car(name));
+    const cars = carNames.map(name => new Car(name));
     this.cars = cars;
     this.roundCount = roundCount;
   }
 
-  validateCarName(carNameList) {
-    if (carNameList.length < MIN_CAR_LENGTH) {
-      throw new Error(ERROR_MESSAGES.INVALID_CAR_COUNT);
-    }
-    if (carNameList.some(name => name.trim() === '')) {
-      throw new Error(ERROR_MESSAGES.INVALID_BLANK_NAME);
-    }
-    if (carNameList.some(name => name.length > MAX_CAR_NAME_LENGTH)) {
-      throw new Error(ERROR_MESSAGES.INVALID_CAR_NAME_LENGTH);
-    }
-    if (new Set(carNameList).size !== carNameList.length) {
-      throw new Error(ERROR_MESSAGES.INVALID_SAME_NAME);
-    }
-  }
-
-  validateRoundCount(count) {
-    if (isNaN(count)) {
-    throw new Error(ERROR_MESSAGES.INVALID_NOT_NUMBER);
-    }
-    if (Number(count) > LIMIT_ROUND_COUNT) {
-    throw new Error(ERROR_MESSAGES.INVALID_EXCEEDED_MAX_VALUE);
-    }
-  }
-
   getForwardDistance() {
     let forwardDistance = 0;
-    const random = Random.pickNumberInRange(RANDOM_MIN, RANDOM_MAX);
-    if (random > FORWARD_THRESHOLD) {
-      forwardDistance = FORWARD_DISTANCE;
+    const random = Random.pickNumberInRange(RACING_GAME.RANDOM_MIN, RACING_GAME.RANDOM_MAX);
+    if (random > RACING_GAME.FORWARD_THRESHOLD) {
+      forwardDistance = RACING_GAME.FORWARD_DISTANCE;
     }
     return forwardDistance;
   }

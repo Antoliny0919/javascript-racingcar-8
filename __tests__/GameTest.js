@@ -14,7 +14,7 @@ let game;
 let cars;
 
 beforeEach(() => {
-  const carNames = 'a,b,c';
+  const carNames = ['a', 'b', 'c'];
   game = new RacingGame(carNames, '2');
   cars = game.cars;
 
@@ -45,7 +45,7 @@ describe('RacingGame', () => {
     expect(winners.length).toBe(2);
     expect(winners[0]).toEqual({name: 'a', forwardDistance: 10});
     expect(winners[1]).toEqual({name: 'c', forwardDistance: 10});
-  })
+  });
 
   test('우승자 출력 테스트', () => {
     let winners;
@@ -60,7 +60,7 @@ describe('RacingGame', () => {
     game.announceWinners(winners);
 
     expect(Console.print).toHaveBeenCalledWith('최종 우승자 : a, b, c');
-  })
+  });
 });
 
 describe('Car', () => {
