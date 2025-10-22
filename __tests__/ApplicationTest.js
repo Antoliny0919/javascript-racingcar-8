@@ -189,13 +189,15 @@ describe('시도 횟수 입력 예외 테스트', () => {
       '나무',
       '****',
       'z[][][]z',
+      '-1',
+      ''
     ]
   )('숫자가 아닌 시도 횟수 입력 예외', async (input) => {
     mockQuestions(['aa,bb', input]);
 
     const app = new App();
 
-    await expect(app.run()).rejects.toThrow('[ERROR] 숫자만 입력해 주세요.');
+    await expect(app.run()).rejects.toThrow('[ERROR] 시도 횟수는 양수인 숫자만 입력 가능합니다.');
   });
 
   test.each(['300', '100000000000', '101'])('최대 이동횟수를 초과하는 입력 예외', async (input) => {

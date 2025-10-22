@@ -26,9 +26,9 @@ export const carNameValidators = [
 ];
 
 export const roundCountValidators = [
-  // 숫자 외 입력 검증
+  // 양수인 숫자 외 입력 검증
   new Validator(
-    (value) => isNaN(value),
+    (value) => isNaN(value) || Number(value) < 1,
     ERROR_MESSAGES.INVALID_NOT_NUMBER,
   ),
   // 한계값 검증

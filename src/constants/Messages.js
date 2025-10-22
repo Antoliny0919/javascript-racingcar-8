@@ -3,7 +3,7 @@ export const ERROR_MESSAGES = Object.freeze({
     INVALID_BLANK_NAME: '공백은 자동차 이름으로 사용할 수 없습니다.',
     INVALID_CAR_NAME_LENGTH: '자동차 이름은 5자 이하여야 합니다.',
     INVALID_SAME_NAME: '동일한 이름은 사용할 수 없습니다.',
-    INVALID_NOT_NUMBER: '숫자만 입력해 주세요.',
+    INVALID_NOT_NUMBER: '시도 횟수는 양수인 숫자만 입력 가능합니다.',
     INVALID_EXCEEDED_MAX_VALUE: '최대 이동횟수는 100회 입니다.',
 });
 
