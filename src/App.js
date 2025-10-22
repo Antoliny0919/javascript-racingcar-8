@@ -1,5 +1,7 @@
 import { Console, Random } from "@woowacourse/mission-utils";
 
+import { ERROR_MESSAGES, MESSAGES } from "./Constants";
+
 export class Car {
   constructor(name) {
     this.name = name;
@@ -35,7 +37,7 @@ export class RacingGame {
 
   announceWinners(winners) {
     const winnersName = winners.map(winner => winner.name);
-    Console.print(`최종 우승자 : ${winnersName.join(', ')}`);
+    Console.print(MESSAGES.WINNER_ANNOUNCE_MESSAGE(winnersName));
   }
 
   round() {
@@ -47,7 +49,7 @@ export class RacingGame {
   }
 
   play() {
-    Console.print('\n실행 결과');
+    Console.print(MESSAGES.EXECUTE_RESULT_MESSAGE);
     for (let i = 0; i < this.tryCount; i++) {
       this.round();
     }
@@ -60,34 +62,34 @@ class App {
 
   validateCarName(carNameList) {
     if (carNameList.length < 2) {
-      throw new Error('[ERROR] 경주를 하기 위해서는 최소한 자동차가 두 대 이상이어야 합니다.')
+      throw new Error(ERROR_MESSAGES.INVALID_CAR_COUNT);
     }
     if (carNameList.some(name => name.trim() === '')) {
-      throw new Error('[ERROR] 공백은 자동차 이름으로 사용할 수 없습니다.')
+      throw new Error(ERROR_MESSAGES.INVALID_BLANK_NAME);
     }
     if (carNameList.some(name => name.length > 5)) {
-      throw new Error('[ERROR] 자동차 이름은 5자 이하여야 합니다.')
+      throw new Error(ERROR_MESSAGES.INVALID_CAR_NAME_LENGTH);
     }
     if (new Set(carNameList).size !== carNameList.length) {
-      throw new Error('[ERROR] 동일한 이름은 사용할 수 없습니다.')
+      throw new Error(ERROR_MESSAGES.INVALID_SAME_NAME);
     }
   }
 
   validateTryCount(count) {
     if (isNaN(count)) {
-      throw new Error('[ERROR] 숫자만 입력해 주세요.');
+      throw new Error(ERROR_MESSAGES.INVALID_NOT_NUMBER);
     }
     if (Number(count) > 100) {
-      throw new Error('[ERROR] 최대 이동횟수는 100회 입니다.');
+      throw new Error(ERROR_MESSAGES.INVALID_EXCEEDED_MAX_VALUE);
     }
   }
 
   async run() {
-    const carNames = await Console.readLineAsync('경주할 자동차 이름(이름은 쉼표(,) 기준으로 구분\n');
+    const carNames = await Console.readLineAsync(MESSAGES.CAR_NAME_INPUT_MESSAGE);
     const carNameList = carNames.split(',');
     const cars = carNameList.map(name => new Car(name));
     this.validateCarName(carNameList)
-    const tryCount = await Console.readLineAsync('시도할 횟수\n');
+    const tryCount = await Console.readLineAsync(MESSAGES.ROUND_COUNT_INPUT_MESSAGE);
     this.validateTryCount(tryCount);
     const game = new RacingGame(cars, tryCount);
     game.play();
