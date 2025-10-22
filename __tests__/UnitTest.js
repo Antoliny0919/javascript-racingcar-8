@@ -30,6 +30,21 @@ describe('RacingGame', () => {
       expect(game.getForwardDistance()).toBe(result);
     }
   });
+
+  test('우승자 필터 테스트', () => {
+    cars[0].forwardDistance = 10;
+    let winners = [];
+
+    winners = game.getWinners();
+    expect(winners.length).toBe(1);
+    expect(winners[0]).toEqual({name: 'a', forwardDistance: 10});
+
+    cars[2].forwardDistance = 10;
+    winners = game.getWinners();
+    expect(winners.length).toBe(2);
+    expect(winners[0]).toEqual({name: 'a', forwardDistance: 10});
+    expect(winners[1]).toEqual({name: 'c', forwardDistance: 10});
+  })
 });
 
 describe('Car', () => {

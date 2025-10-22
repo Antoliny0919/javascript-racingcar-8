@@ -27,6 +27,12 @@ export class RacingGame {
     return forwardDistance;
   }
 
+  getWinners() {
+    const winnerForwardDistance = Math.max(...this.cars.map(car => car.forwardDistance));
+    const winners = this.cars.filter(car => car.forwardDistance === winnerForwardDistance);
+    return winners;
+  }
+
   round() {
     this.cars.forEach(car => {
       car.forwardDistance += this.getForwardDistance();
@@ -40,6 +46,7 @@ export class RacingGame {
     for (let i = 0; i < this.tryCount; i++) {
       this.round();
     }
+    const winners = this.getWinners();
   }
 }
 
