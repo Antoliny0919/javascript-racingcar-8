@@ -59,32 +59,79 @@ describe('자동차 경주', () => {
   });
 });
 
-describe('입력 예외 테스트', () => {
-  test.each(
-    [
-      ['solo', '경주를 하기 위해서는 최소한 자동차가 두 대 이상이어야 합니다.'],
-      ['aa, ,cc', '공백은 자동차 이름으로 사용할 수 없습니다.'],
-      ['bmw,benz,ferrari', '자동차 이름은 5자 이하여야 합니다.'],
-      ['kim,lee,lee', '동일한 이름은 사용할 수 없습니다.'],
-    ]
-  )('자동차 이름 입력 예외', async (input, message) => {
+describe('자동차 이름 입력 예외 테스트', () => {
+  test.each(['solo', ''])('한 대 이하 자동차 입력 예외', async (input) => {
     mockQuestions([input]);
 
     const app = new App();
 
-    await expect(app.run()).rejects.toThrow(`[ERROR] ${message}`);
+    await expect(app.run()).rejects.toThrow('[ERROR] 경주를 하기 위해서는 최소한 자동차가 두 대 이상이어야 합니다.');
   });
 
   test.each(
     [
-      ['다섯', '숫자만 입력해 주세요.'],
-      ['300', '최대 이동횟수는 100회 입니다.'],
+      'aa, ,cc',
+      ' ,z,b',
+      'to,ma, ',
     ]
-  )('이동횟수 입력 예외', async (input, message) => {
-    mockQuestions(['aa,bb' ,input]);
+  )('공백 자동차 이름 입력 예외', async (input) => {
+    mockQuestions([input]);
 
     const app = new App();
 
-    await expect(app.run()).rejects.toThrow(`[ERROR] ${message}`);
+    await expect(app.run()).rejects.toThrow('[ERROR] 공백은 자동차 이름으로 사용할 수 없습니다.');
+  });
+
+  test.each(
+    [
+      'bmw,benz,ferrari',
+      'banana,strawberry,watermelon',
+      'lee,siiiiiiii,hyun',
+    ]
+  )('5자 초과하는 자동차 이름 입력 예외', async (input) => {
+    mockQuestions([input]);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow('[ERROR] 자동차 이름은 5자 이하여야 합니다.');
+  });
+
+  test.each(
+    [
+      'kim,lee,lee',
+      '***,[[[,***',
+      'bread,bread,bread',
+    ]
+  )('동일한 자동차 이름 입력 예외', async (input) => {
+    mockQuestions([input]);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow('[ERROR] 동일한 이름은 사용할 수 없습니다.');
+  });
+});
+
+describe('시도 횟수 입력 예외 테스트', () => {
+  test.each(
+    [
+      '다섯',
+      '나무',
+      '****',
+      'z[][][]z',
+    ]
+  )('숫자가 아닌 시도 횟수 입력 예외', async (input) => {
+    mockQuestions(['aa,bb', input]);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow('[ERROR] 숫자만 입력해 주세요.');
+  });
+
+  test.each(['300', '100000000000', '101'])('최대 이동횟수를 초과하는 입력 예외', async (input) => {
+    mockQuestions(['aa,bb', input]);
+
+    const app = new App();
+
+    await expect(app.run()).rejects.toThrow('[ERROR] 최대 이동횟수는 100회 입니다.');
   });
 });
