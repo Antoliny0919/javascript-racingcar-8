@@ -45,6 +45,21 @@ describe('RacingGame', () => {
     expect(winners[0]).toEqual({name: 'a', forwardDistance: 10});
     expect(winners[1]).toEqual({name: 'c', forwardDistance: 10});
   })
+
+  test('우승자 출력 테스트', () => {
+    let winners;
+
+    winners = [game.cars[1]];
+    game.announceWinners(winners);
+
+    expect(Console.print).toHaveBeenCalled();
+    expect(Console.print).toHaveBeenCalledWith('최종 우승자 : b');
+
+    winners = [...game.cars];
+    game.announceWinners(winners);
+
+    expect(Console.print).toHaveBeenCalledWith('최종 우승자 : a, b, c');
+  })
 });
 
 describe('Car', () => {

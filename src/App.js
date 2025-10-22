@@ -33,6 +33,11 @@ export class RacingGame {
     return winners;
   }
 
+  announceWinners(winners) {
+    const winnersName = winners.map(winner => winner.name);
+    Console.print(`최종 우승자 : ${winnersName.join(', ')}`);
+  }
+
   round() {
     this.cars.forEach(car => {
       car.forwardDistance += this.getForwardDistance();
@@ -47,6 +52,7 @@ export class RacingGame {
       this.round();
     }
     const winners = this.getWinners();
+    this.announceWinners(winners);
   }
 }
 
