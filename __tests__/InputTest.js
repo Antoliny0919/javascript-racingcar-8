@@ -1,6 +1,6 @@
 import { Console } from '@woowacourse/mission-utils';
 import Input from '../src/Input';
-import Validator from '../src/Validators';
+import Validator from '../src/validators/Validators';
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Console: {

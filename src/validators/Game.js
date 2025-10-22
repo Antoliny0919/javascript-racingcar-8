@@ -1,8 +1,8 @@
-import Validator from '../Validators.js';
-import { ERROR_MESSAGES } from './Messages.js';
-import { RACING_GAME } from './Game.js';
+import Validator from './Validators.js';
+import { ERROR_MESSAGES } from '../constants/Messages.js';
+import { RACING_GAME } from '../constants/Game.js';
 
-export const CAR_NAME_VALIDATORS = [
+export const carNameValidators = [
   // 자동차 수 검증
   new Validator(
     (value) => value.length < RACING_GAME.MIN_CAR_LENGTH,
@@ -25,7 +25,7 @@ export const CAR_NAME_VALIDATORS = [
   ),
 ];
 
-export const ROUND_COUNT_VALIDATORS = [
+export const roundCountValidators = [
   // 숫자 외 입력 검증
   new Validator(
     (value) => isNaN(value),

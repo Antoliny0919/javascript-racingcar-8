@@ -1,5 +1,5 @@
 import { Console } from '@woowacourse/mission-utils';
-import Validator from './Validators';
+import Validator from './validators/Validators.js';
 
 /**
  * 사용자 입력을 받고 유효성 검사를 수행합니다.
