@@ -61,7 +61,7 @@ describe('자동차 경주', () => {
 
 describe('다양한 성공 케이스 테스트', () => {
 
-  // 정수로된 값을 mock에 전달할 패턴으로 변환합니다.
+  // 정수로된 값을 mock(`pickNumberInRange`)에 전달할 패턴으로 변환합니다.
   // e.g. [1, 2] -> [MOVING_FORWARD, MOVING_FORWARD, STOP, MOVING_FORWARD]
   const makeForwardDistancePattern = (roundCount, distances) => {
     const MOVING_FORWARD = 4;
