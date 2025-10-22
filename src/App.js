@@ -6,8 +6,8 @@ class App {
 
   async run() {
     const carNames = await Console.readLineAsync(MESSAGES.CAR_NAME_INPUT_MESSAGE);
-    const tryCount = await Console.readLineAsync(MESSAGES.ROUND_COUNT_INPUT_MESSAGE);
-    const game = new RacingGame(carNames, tryCount);
+    const roundCount = await Console.readLineAsync(MESSAGES.ROUND_COUNT_INPUT_MESSAGE);
+    const game = new RacingGame(carNames, roundCount);
     game.play();
   }
 }

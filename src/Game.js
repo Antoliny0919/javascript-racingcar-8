@@ -24,13 +24,13 @@ export class Car {
 
 export class RacingGame {
 
-  constructor(carNames, tryCount) {
+  constructor(carNames, roundCount) {
     const carNameList = carNames.split(CAR_NAME_SEPARATOR);
     this.validateCarName(carNameList);
-    this.validateTryCount(tryCount);
+    this.validateRoundCount(roundCount);
     const cars = carNameList.map(name => new Car(name));
     this.cars = cars;
-    this.tryCount = tryCount;
+    this.roundCount = roundCount;
   }
 
   validateCarName(carNameList) {
@@ -48,7 +48,7 @@ export class RacingGame {
     }
   }
 
-  validateTryCount(count) {
+  validateRoundCount(count) {
     if (isNaN(count)) {
     throw new Error(ERROR_MESSAGES.INVALID_NOT_NUMBER);
     }
@@ -87,7 +87,7 @@ export class RacingGame {
 
   play() {
     Console.print(MESSAGES.EXECUTE_RESULT_MESSAGE);
-    for (let i = 0; i < this.tryCount; i++) {
+    for (let i = 0; i < this.roundCount; i++) {
       this.round();
     }
     const winners = this.getWinners();
