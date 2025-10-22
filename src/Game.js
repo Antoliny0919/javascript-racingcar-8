@@ -16,7 +16,7 @@ export class Car {
 export class RacingGame {
 
   constructor(carNames, roundCount) {
-    const cars = carNames.map(name => new Car(name));
+    const cars = carNames.map((name) => new Car(name));
     this.cars = cars;
     this.roundCount = roundCount;
   }
@@ -31,18 +31,18 @@ export class RacingGame {
   }
 
   getWinners() {
-    const winnerForwardDistance = Math.max(...this.cars.map(car => car.forwardDistance));
+    const winnerForwardDistance = Math.max(...this.cars.map((car) => car.forwardDistance));
     const winners = this.cars.filter(car => car.forwardDistance === winnerForwardDistance);
     return winners;
   }
 
   announceWinners(winners) {
-    const winnerNames = winners.map(winner => winner.name);
+    const winnerNames = winners.map((winner) => winner.name);
     Console.print(MESSAGES.WINNER_ANNOUNCE_MESSAGE(winnerNames));
   }
 
   round() {
-    this.cars.forEach(car => {
+    this.cars.forEach((car) => {
       car.forwardDistance += this.getForwardDistance();
       car.printCurrentForwardDistance();
     });
