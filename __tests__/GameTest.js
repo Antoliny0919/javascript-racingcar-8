@@ -22,7 +22,6 @@ beforeEach(() => {
 });
 
 describe('RacingGame', () => {
-
   test('앞으로 이동할 거리 반환값 테스트', () => {
     const expectResults = [[4, 1], [3, 0], [7, 1], [1, 0]];
 
