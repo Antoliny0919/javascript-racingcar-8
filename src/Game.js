@@ -1,6 +1,5 @@
 import { Console, Random } from "@woowacourse/mission-utils";
-import { MESSAGES } from "./Constants";
-
+import { ERROR_MESSAGES, MESSAGES } from "./Constants.js";
 
 export class Car {
   constructor(name) {
@@ -15,9 +14,37 @@ export class Car {
 
 export class RacingGame {
 
-  constructor(cars, tryCount) {
+  constructor(carNames, tryCount) {
+    const carNameList = carNames.split(',');
+    this.validateCarName(carNameList);
+    this.validateTryCount(tryCount);
+    const cars = carNameList.map(name => new Car(name));
     this.cars = cars;
     this.tryCount = tryCount;
+  }
+
+  validateCarName(carNameList) {
+    if (carNameList.length < 2) {
+      throw new Error(ERROR_MESSAGES.INVALID_CAR_COUNT);
+    }
+    if (carNameList.some(name => name.trim() === '')) {
+      throw new Error(ERROR_MESSAGES.INVALID_BLANK_NAME);
+    }
+    if (carNameList.some(name => name.length > 5)) {
+      throw new Error(ERROR_MESSAGES.INVALID_CAR_NAME_LENGTH);
+    }
+    if (new Set(carNameList).size !== carNameList.length) {
+      throw new Error(ERROR_MESSAGES.INVALID_SAME_NAME);
+    }
+  }
+
+  validateTryCount(count) {
+    if (isNaN(count)) {
+    throw new Error(ERROR_MESSAGES.INVALID_NOT_NUMBER);
+    }
+    if (Number(count) > 100) {
+    throw new Error(ERROR_MESSAGES.INVALID_EXCEEDED_MAX_VALUE);
+    }
   }
 
   getForwardDistance() {

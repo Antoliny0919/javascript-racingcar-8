@@ -1,5 +1,5 @@
 import { Random, Console } from "@woowacourse/mission-utils";
-import { Car, RacingGame } from "../src/Game.js";
+import { RacingGame } from "../src/Game.js";
 
 jest.mock('@woowacourse/mission-utils', () => ({
   Random: {
@@ -10,12 +10,13 @@ jest.mock('@woowacourse/mission-utils', () => ({
   },
 }));
 
-let cars;
 let game;
+let cars;
 
 beforeEach(() => {
-  cars = [new Car('a'), new Car('b'), new Car('c')];
-  game = new RacingGame(cars, 2);
+  const carNames = 'a,b,c';
+  game = new RacingGame(carNames, '2');
+  cars = game.cars;
 
   Console.print.mockClear();
 });
