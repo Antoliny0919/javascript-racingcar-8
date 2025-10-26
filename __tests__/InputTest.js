@@ -8,7 +8,7 @@ jest.mock('@woowacourse/mission-utils', () => ({
   },
 }));
 
-describe('Input', () => {
+describe('InputTests', () => {
   const lengthValidator = new Validator(
     (value) => value.length < 5, '이름은 5자 이상이어야 합니다.'
   );

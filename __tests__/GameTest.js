@@ -10,18 +10,15 @@ jest.mock('@woowacourse/mission-utils', () => ({
   },
 }));
 
-let game;
-let cars;
+describe('RacingGameTests', () => {
+  beforeEach(() => {
+    const carNames = ['a', 'b', 'c'];
+    game = new RacingGame(carNames, '2');
+    cars = game.cars;
 
-beforeEach(() => {
-  const carNames = ['a', 'b', 'c'];
-  game = new RacingGame(carNames, '2');
-  cars = game.cars;
+    Console.print.mockClear();
+  });
 
-  Console.print.mockClear();
-});
-
-describe('RacingGame', () => {
   test('앞으로 이동할 거리 반환값 테스트', () => {
     const expectResults = [[4, 1], [3, 0], [7, 1], [1, 0]];
 
@@ -62,7 +59,14 @@ describe('RacingGame', () => {
   });
 });
 
-describe('Car', () => {
+describe('CarTests', () => {
+  beforeEach(() => {
+    const carNames = ['Kim', 'Lee', 'Jung'];
+    game = new RacingGame(carNames, '1');
+
+    Console.print.mockClear();
+  });
+
   test('라운드마다 자동차 이동거리 출력 테스트', () => {
     const randomValue = [4, 5, 2, 8, 3, 1];
     randomValue.forEach((value) => Random.pickNumberInRange.mockReturnValueOnce(value));
@@ -70,14 +74,14 @@ describe('Car', () => {
     game.round();
 
     expect(Console.print).toHaveBeenCalled();
-    expect(Console.print).toHaveBeenCalledWith('a : -');
-    expect(Console.print).toHaveBeenCalledWith('b : -');
-    expect(Console.print).toHaveBeenCalledWith('c : ');
+    expect(Console.print).toHaveBeenCalledWith('Kim : -');
+    expect(Console.print).toHaveBeenCalledWith('Lee : -');
+    expect(Console.print).toHaveBeenCalledWith('Jung : ');
 
     game.round();
 
-    expect(Console.print).toHaveBeenCalledWith('a : --');
-    expect(Console.print).toHaveBeenCalledWith('b : -');
-    expect(Console.print).toHaveBeenCalledWith('c : ');
+    expect(Console.print).toHaveBeenCalledWith('Kim : --');
+    expect(Console.print).toHaveBeenCalledWith('Lee : -');
+    expect(Console.print).toHaveBeenCalledWith('Jung : ');
   });
 });
