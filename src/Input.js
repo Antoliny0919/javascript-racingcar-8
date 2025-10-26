@@ -15,26 +15,26 @@ class Input {
    * @param {Validator[]} validators - 입력값을 검증할 Validator 객체 배열
    * @param {string|null} separator - 입력값을 분리할 구분자
    */
-	constructor(message, validators=[], separator=null) {
-		this.message = message;
-		this.validators = validators;
+  constructor(message, validators=[], separator=null) {
+	this.message = message;
+	this.validators = validators;
     this.separator = separator;
-	}
+  }
 
-	async run() {
-		let response = await Console.readLineAsync(this.message);
+  async run() {
+	let response = await Console.readLineAsync(this.message);
     if (this.separator) {
       response = response.split(this.separator);
     }
-		this.runValidators(response);
-		return response;
-	}
+	this.runValidators(response);
+	return response;
+  }
 
-	runValidators(value) {
-		for (const validator of this.validators) {
-			validator.validate(value);
-		}
+  runValidators(value) {
+	for (const validator of this.validators) {
+	  validator.validate(value);
 	}
+  }
 }
 
 export default Input;
