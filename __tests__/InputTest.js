@@ -16,11 +16,11 @@ describe('InputTests', () => {
     (value) => value.includes(':'), '이름에 세미콜론은 사용할 수 없습니다.'
   );
   let inputMessage = '이름을 입력해 주세요: ';
+  const input = new Input();
 
   test('유효한 입력 테스트', async () => {
     Console.readLineAsync.mockResolvedValueOnce('Antoliny');
-    const input = new Input(inputMessage, [lengthValidator]);
-    const response = await input.run();
+    const response = await input.read(inputMessage, [lengthValidator]);
 
     expect(Console.readLineAsync).toHaveBeenCalled();
     expect(Console.readLineAsync).toHaveBeenCalledWith(inputMessage);
@@ -29,16 +29,18 @@ describe('InputTests', () => {
 
   test('유효하지 않은 입력 테스트', async () => {
     Console.readLineAsync.mockResolvedValueOnce('Lee');
-    const input = new Input(inputMessage, [lengthValidator]);
 
-    await expect(input.run()).rejects.toThrow('[ERROR] 이름은 5자 이상이어야 합니다.');
+    await expect(
+      input.read(inputMessage, [lengthValidator])
+    ).rejects.toThrow('[ERROR] 이름은 5자 이상이어야 합니다.');
   });
 
   test('여러개의 검증기를 사용할때 유효하지 않은 입력 테스트', async () => {
     Console.readLineAsync.mockResolvedValueOnce(':Antoliny:');
-    const input = new Input(inputMessage, [lengthValidator, NotAllowColonValidator]);
 
-    await expect(input.run()).rejects.toThrow('[ERROR] 이름에 세미콜론은 사용할 수 없습니다.');
+    await expect(
+      input.read(inputMessage, [lengthValidator, NotAllowColonValidator])
+    ).rejects.toThrow('[ERROR] 이름에 세미콜론은 사용할 수 없습니다.');
   });
 
   test('구분자를 사용한 입력 테스트', async () => {
@@ -49,8 +51,7 @@ describe('InputTests', () => {
     const separator = ':';
 
     Console.readLineAsync.mockResolvedValueOnce('Sarahboyce:Antoliny:Cliff:TomCarrick');
-    const input = new Input(inputMessage, [nameLengthValidator], separator);
-    const response = await input.run();
+    const response = await input.read(inputMessage, [nameLengthValidator], separator);
 
     await expect(response).toEqual(['Sarahboyce', 'Antoliny', 'Cliff', 'TomCarrick']);
   });

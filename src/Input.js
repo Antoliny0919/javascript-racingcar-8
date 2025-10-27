@@ -5,8 +5,8 @@ import Validator from './validators/Validators.js';
  * 사용자 입력을 받고 유효성 검사를 수행합니다.
  * 
  * @example
- * const input = new Input('이름을 입력하세요: ', [Validator((value) => value.length > 4)]);
- * const name = await input.run();
+ * const input = new Input();
+ * const name = await input.read('이름을 입력하세요: ', [Validator((value) => value.length > 4)]);
  */
 class Input {
 
@@ -15,23 +15,17 @@ class Input {
    * @param {Validator[]} validators - 입력값을 검증할 Validator 객체 배열
    * @param {string|null} separator - 입력값을 분리할 구분자
    */
-  constructor(message, validators=[], separator=null) {
-	this.message = message;
-	this.validators = validators;
-    this.separator = separator;
-  }
-
-  async run() {
-	let response = await Console.readLineAsync(this.message);
-    if (this.separator) {
-      response = response.split(this.separator);
+  async read(message, validators=[], separator=null) {
+	let response = await Console.readLineAsync(message);
+    if (separator) {
+      response = response.split(separator);
     }
-	this.runValidators(response);
+	this.#runValidators(response, validators);
 	return response;
   }
 
-  runValidators(value) {
-	for (const validator of this.validators) {
+  #runValidators(value, validators) {
+	for (const validator of validators) {
 	  validator.validate(value);
 	}
   }
